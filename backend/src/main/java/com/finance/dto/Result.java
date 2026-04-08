@@ -14,11 +14,11 @@ public class Result<T> {
     }
 
     public static <T> Result<T> success(T data) {
-        return new Result<>(200, "success", data);
+        return new Result<>(200, "success", data);  // token 放在 data 中
     }
 
-    public static <T> Result<T> success(String message) {
-        return new Result<>(200, message, null);
+    public static <T> Result<T> success(String message, T data) {
+        return new Result<>(200, message, data);
     }
 
     public static <T> Result<T> error(String message) {
@@ -29,27 +29,11 @@ public class Result<T> {
         return new Result<>(code, message, null);
     }
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
+    // getter 和 setter
+    public Integer getCode() { return code; }
+    public void setCode(Integer code) { this.code = code; }
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
+    public T getData() { return data; }
+    public void setData(T data) { this.data = data; }
 }

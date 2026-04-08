@@ -22,18 +22,27 @@ public class AnalysisServiceImpl implements AnalysisService {
     public Map<String, Object> getMonthlyTrend(Long userId, int year) {
         List<Map<String, Object>> trend = new ArrayList<>();
         for (int month = 1; month <= 12; month++) {
+            // 计算月份的第一天
             String start = year + "-" + String.format("%02d", month) + "-01";
-            String end = year + "-" + String.format("%02d", month) + "-31";
+
+            // 计算月份的最后一天
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month - 1, 1);
+            int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            String end = year + "-" + String.format("%02d", month) + "-" + lastDay;
+
             QueryWrapper<Transaction> incomeWrapper = new QueryWrapper<>();
             incomeWrapper.eq("user_id", userId).eq("type", 1)
                     .ge("transaction_date", start).le("transaction_date", end);
             BigDecimal income = transactionMapper.selectList(incomeWrapper).stream()
                     .map(Transaction::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+
             QueryWrapper<Transaction> expenseWrapper = new QueryWrapper<>();
             expenseWrapper.eq("user_id", userId).eq("type", 0)
                     .ge("transaction_date", start).le("transaction_date", end);
             BigDecimal expense = transactionMapper.selectList(expenseWrapper).stream()
                     .map(Transaction::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+
             Map<String, Object> monthData = new HashMap<>();
             monthData.put("month", month);
             monthData.put("income", income);
@@ -44,7 +53,6 @@ public class AnalysisServiceImpl implements AnalysisService {
         result.put("trend", trend);
         return result;
     }
-
     @Override
     public List<Map<String, Object>> getExpenseByCategory(Long userId, String month) {
         // 获取用户所有支出分类
