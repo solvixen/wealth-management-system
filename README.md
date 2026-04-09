@@ -50,7 +50,6 @@
     datasource:
       username: root
       password: your_password
-```
 • 在 IDEA 中打开 backend 目录，等待 Maven 依赖下载完成
 • 运行 WealthManagementApplication.java 主类
 
