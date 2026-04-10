@@ -62,7 +62,7 @@ npm install
 npm run serve
 ```
 
-###4. 访问系统
+### 4. 访问系统
 • 前端地址：http://localhost:8081
 • 注册新用户 → 登录 → 开始使用
 
