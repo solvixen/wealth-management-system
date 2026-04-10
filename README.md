@@ -66,7 +66,7 @@ npm run serve
 • 前端地址：http://localhost:8081
 • 注册新用户 → 登录 → 开始使用
 
-###📌 注意事项
+### 📌 注意事项
 
 • 如果后端启动遇到 ExceptionInInitializerError 编译错误，请尝试将 IDEA 编译器切换为 Eclipse ，或升级 JDK 到 11 以上。  
 • 默认后端端口为 8080，前端代理已配置指向该端口，无需修改。  
